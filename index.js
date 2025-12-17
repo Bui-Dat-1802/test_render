@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 
 const app = express();
 app.use(express.json({ limit: "10mb" }));
-const mongoURI =
-    "mongodb+srv://20225274:Ss35uX7aXvMOVtJE@testweb.mgkmb2q.mongodb.net/2025274?retryWrites=true&w=majority";
 mongoose
-    .connect(mongoURI, { serverSelectionTimeoutMS: 5000 })
-    .then(() => console.log("Connected to MongoDB Atlas"))
-    .catch((err) => console.error("Connection error:", err));
+  .connect(process.env.MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+  })
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 mongoose.connection.on("connected", () => console.log("Mongoose connected to DB"));
 mongoose.connection.on("error", (err) => console.error("Mongoose connection error:", err));
